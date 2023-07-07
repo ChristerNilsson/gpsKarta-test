@@ -1,4 +1,4 @@
-VERSION = 103
+VERSION = 104
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -124,7 +124,8 @@ initSpeaker = ->
 	for v in voices
 		#if names v, 'George Daniel' then voice = v
 		if names v, 'Susan Karen' then voice = v
-	console.log voice
+	document.title = 'nothing'
+	if voice then document.title = voice.name
 
 	say ""
 	f()
