@@ -1,4 +1,4 @@
-VERSION = 104
+VERSION = 105
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -47,7 +47,7 @@ setup = ->
 
 	[cx,cy] = [img.width/2,img.height/2]
 
-	#initSpeaker()
+	initSpeaker()
 
 draw = ->
 
