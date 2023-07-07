@@ -1,4 +1,4 @@
-VERSION = 101
+VERSION = 102
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -108,7 +108,7 @@ initSpeaker = ->
 	speaker.pitch = 0
 	speaker.text = '' 
 	speaker.lang = 'en-GB'
-	#say "initspeaker"
+	say ""
 	f()
 
 f = () =>
