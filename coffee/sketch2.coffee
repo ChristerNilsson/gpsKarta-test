@@ -1,4 +1,4 @@
-VERSION = 100	
+VERSION = 101
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -41,7 +41,7 @@ setup = ->
 
 	[cx,cy] = [img.width/2,img.height/2]
 
-	setTimer -> 1000
+	initSpeaker()
 
 draw = ->
 
@@ -90,8 +90,10 @@ touchMoved = (event) ->
 
 touchEnded = (event) ->
 	event.preventDefault()
+	#say index
+	#index++
 	if released then return
-	initSpeaker() 
+	#initSpeaker() 
 	released = true
 	if state in [0,2]
 		state = 1
@@ -106,6 +108,8 @@ initSpeaker = ->
 	speaker.pitch = 0
 	speaker.text = '' 
 	speaker.lang = 'en-GB'
+	#say "initspeaker"
+	f()
 
 f = () =>
 	say index
@@ -113,7 +117,7 @@ f = () =>
 	index += 1
 	setTimeout f,1000
 
-setTimer = (ms) -> setTimeout f,ms
+#setTimer = (ms) -> setTimeout f,ms
 
 say = (m) ->
 	if speaker == null then return
