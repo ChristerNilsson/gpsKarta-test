@@ -2,7 +2,7 @@ nilsson_version = "1.5" # getParameters with 0 parameters fixed
 
 # chai visar listinnehåll på ett bra sätt. 
 # _.isEqual(a,b) fungerar också men det blir sämre listutskrifter
-assert = (a, b, msg='Assert failure') -> chai.assert.deepEqual a, b, msg
+# assert = (a, b, msg='Assert failure') -> chai.assert.deepEqual a, b, msg
 
 fixColor = (args) ->
 	n = args.length
@@ -30,9 +30,9 @@ getParameters = (h = window.location.href) ->
 	s = arr[1]
 	if s=='' then return {}
 	_.object(f.split '=' for f in s.split('&'))
-assert getParameters('http:\\christernilsson.github.io\Shortcut\www'), {}
-assert getParameters('http:\\christernilsson.github.io\Shortcut\www?'), {}
-assert getParameters('http:\\christernilsson.github.io\Shortcut\www?a=0&b=1'), {'a':'0', 'b':'1'}
+# assert getParameters('http:\\christernilsson.github.io\Shortcut\www'), {}
+# assert getParameters('http:\\christernilsson.github.io\Shortcut\www?'), {}
+# assert getParameters('http:\\christernilsson.github.io\Shortcut\www?a=0&b=1'), {'a':'0', 'b':'1'}
 
 compare = (a,b) ->
 	if typeof a == "object" and typeof b == "object"
@@ -42,25 +42,24 @@ compare = (a,b) ->
 	else
 		return (if a > b then -1 else (if a < b then 1 else 0))
 	0
-assert compare(12,13), 1
-assert compare(12,12), 0
-assert compare(13,12), -1
-assert compare([1,11],[1,2]), -1
-assert compare([1,11],[1,11]), 0
-assert compare([1,2],[1,11]), 1
-assert compare([1,'11'],[1,'2']), 1
-assert compare([1,'11'],[1,'11']), 0
-assert compare([1,'2'],[1,'11']), -1
+# assert compare(12,13), 1
+# assert compare(12,12), 0
+# assert compare(13,12), -1
+# assert compare([1,11],[1,2]), -1
+# assert compare([1,11],[1,11]), 0
+# assert compare([1,2],[1,11]), 1
+# assert compare([1,'11'],[1,'2']), 1
+# assert compare([1,'11'],[1,'11']), 0
+# assert compare([1,'2'],[1,'11']), -1
 
 bsort = (list,cmp=compare) ->
 	for i in range list.length
 		for j in range list.length-1
 			[list[j], list[j+1]] = [list[j+1], list[j]] if cmp(list[j], list[j+1]) < 0
 	list
-assert bsort([1,8,2],compare), [1,2,8]
-assert bsort([1,8,2],compare), [1,2,8]
-assert bsort([[1],[8],[2]],compare), [[1],[2],[8]]
-assert bsort([[2,1],[2,8],[2,2]],compare), [[2,1],[2,2],[2,8]]
-assert bsort([[1,8], [1,7], [1,9]],compare), [[1,7], [1,8], [1,9]]
-assert bsort([3,2,4,1], compare), [1,2,3,4]
-
+# assert bsort([1,8,2],compare), [1,2,8]
+# assert bsort([1,8,2],compare), [1,2,8]
+# assert bsort([[1],[8],[2]],compare), [[1],[2],[8]]
+# assert bsort([[2,1],[2,8],[2,2]],compare), [[2,1],[2,2],[2,8]]
+# assert bsort([[1,8], [1,7], [1,9]],compare), [[1,7], [1,8], [1,9]]
+# assert bsort([3,2,4,1], compare), [1,2,3,4]

@@ -1,4 +1,4 @@
-VERSION = 102
+VERSION = 103
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -17,6 +17,8 @@ startY = 0
 messages = []
 index = 0
 
+voice = null
+
 speaker = null
 timer = null
 
@@ -33,6 +35,10 @@ preload = ->
 			control.push 0
 		img = loadImage "data/" + data.map
 
+window.speechSynthesis.onvoiceschanged = -> 
+	console.log "voices changed"
+	initSpeaker()
+
 setup = ->
 	canvas = createCanvas innerWidth-0.0, innerHeight #-0.5
 	canvas.position 0,0 # hides text field used for clipboard copy.
@@ -41,7 +47,7 @@ setup = ->
 
 	[cx,cy] = [img.width/2,img.height/2]
 
-	initSpeaker()
+	#initSpeaker()
 
 draw = ->
 
@@ -100,14 +106,26 @@ touchEnded = (event) ->
 		return false
 	false
 
+names = (v,s) =>
+	for name in s.split ' '
+		if -1 != v.name.indexOf name then return true
+	false
+
 initSpeaker = ->
 	speaker = new SpeechSynthesisUtterance()
 	speaker.voiceURI = "native"
 	speaker.volume = 1
 	speaker.rate = 1.0
 	speaker.pitch = 0
-	speaker.text = '' 
+	speaker.text = ''
 	speaker.lang = 'en-GB'
+
+	voices = speechSynthesis.getVoices()
+	for v in voices
+		#if names v, 'George Daniel' then voice = v
+		if names v, 'Susan Karen' then voice = v
+	console.log voice
+
 	say ""
 	f()
 
@@ -123,4 +141,5 @@ say = (m) ->
 	if speaker == null then return
 	speechSynthesis.cancel()
 	speaker.text = m
+	speaker.voice = voice
 	speechSynthesis.speak speaker
