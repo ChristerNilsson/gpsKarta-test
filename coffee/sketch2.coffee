@@ -1,4 +1,4 @@
-VERSION = 245
+VERSION = 100	
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -15,6 +15,10 @@ startX = 0
 startY = 0
 
 messages = []
+index = 0
+
+speaker = null
+timer = null
 
 [cx,cy] = [0,0] # center (image coordinates)
 SCALE = 1
@@ -36,6 +40,8 @@ setup = ->
 	SCALE = data.scale
 
 	[cx,cy] = [img.width/2,img.height/2]
+
+	setTimer -> 1000
 
 draw = ->
 
@@ -85,8 +91,32 @@ touchMoved = (event) ->
 touchEnded = (event) ->
 	event.preventDefault()
 	if released then return
+	initSpeaker() 
 	released = true
 	if state in [0,2]
 		state = 1
 		return false
 	false
+
+initSpeaker = ->
+	speaker = new SpeechSynthesisUtterance()
+	speaker.voiceURI = "native"
+	speaker.volume = 1
+	speaker.rate = 1.0
+	speaker.pitch = 0
+	speaker.text = '' 
+	speaker.lang = 'en-GB'
+
+f = () =>
+	say index
+	console.log index
+	index += 1
+	setTimeout f,1000
+
+setTimer = (ms) -> setTimeout f,ms
+
+say = (m) ->
+	if speaker == null then return
+	speechSynthesis.cancel()
+	speaker.text = m
+	speechSynthesis.speak speaker
