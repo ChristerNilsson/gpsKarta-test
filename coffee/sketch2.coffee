@@ -1,4 +1,4 @@
-VERSION = 105
+VERSION = 106
 
 released = true
 mapName = "" # t ex skarpnäck
@@ -142,5 +142,5 @@ say = (m) ->
 	if speaker == null then return
 	speechSynthesis.cancel()
 	speaker.text = m
-	speaker.voice = voice
+	speaker.voice = if voice then voice else voices[0]
 	speechSynthesis.speak speaker
