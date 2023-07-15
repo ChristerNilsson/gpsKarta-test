@@ -1,4 +1,4 @@
-VERSION = 104
+VERSION = 105
 
 BEARINGLIST ='01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36'
 DISTLIST = '2 4 6 8 10 12 14 16 18 20 30 40 50 60 70 80 90 100 120 140 160 180 200 300 400 500 600 700 800 900 1000 1200 1400 1600 1800 2000 3000 4000 5000 6000 7000 8000 9000 10000'
@@ -31,7 +31,8 @@ SCALE = 1
 pLat = 0
 pLon = 0
 
-gpsCounter = 0 
+gpsCounter = 0
+locationId= 0
 
 locationUpdateFail = (error) ->	if error.code == error.PERMISSION_DENIED then message = 'Check location permissions'
 
@@ -77,11 +78,14 @@ preload = ->
 
 window.onload = ->
 	if navigator.geolocation
-		navigator.geolocation.watchPosition locationUpdate, locationUpdateFail,
+		if locationId != 0
+			navigator.geolocation.clearWatch locationId
+
+		locationId = navigator.geolocation.watchPosition locationUpdate, locationUpdateFail,
 			enableHighAccuracy: true
 			maximumAge: 30000
 			timeout: 27000
-		message = 'ok'
+		message = locationId
 	else 
 		message = 'No location support'
 
